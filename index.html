@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="WebWiz helps learners find common HTML quality and accessibility issues.">
+  <title>WebWiz — Code. Detect. Learn.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="WebWiz home">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span><strong>WebWiz</strong><small>Code. Detect. Learn.</small></span>
+      </a>
+      <div class="topbar-actions">
+        <span class="status-pill"><span class="status-dot"></span> Local analysis</span>
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Switch theme" title="Switch theme">☼</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero section-wrap">
+        <div>
+          <p class="eyebrow">HTML quality workbench <span>v1.0</span></p>
+          <h1>Make your markup <em>make sense.</em></h1>
+          <p class="hero-copy">Find common HTML and accessibility issues, understand why they matter, and build a cleaner habit one fix at a time.</p>
+        </div>
+        <div class="hero-note"><span class="hero-note-icon">✦</span><span>Start with one issue.<br><strong>Leave with a pattern.</strong></span></div>
+      </section>
+
+      <section class="workbench section-wrap" aria-label="HTML workbench">
+        <div class="editor-panel panel">
+          <div class="panel-header">
+            <div class="panel-title"><span class="panel-kicker">01</span><div><h2>Playground</h2><p>Edit source, then preview it safely.</p></div></div>
+            <span class="file-chip">index.html</span>
+          </div>
+          <div class="editor-toolbar">
+            <button class="tool-button" id="loadSample" type="button">↺ Load sample</button>
+            <button class="tool-button" id="clearCode" type="button">⌫ Clear</button>
+            <button class="tool-button undo-button" id="undoCode" type="button" disabled>↶ Undo</button>
+            <span class="character-count" id="characterCount">0 / {{ "{:,}".format(max_html_length) }}</span>
+          </div>
+          <div class="editor-wrap" id="editorWrap">
+            <div class="line-gutter" id="lineNumbers" aria-hidden="true"></div>
+            <textarea id="htmlEditor" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="HTML source editor" maxlength="{{ max_html_length }}"></textarea>
+          </div>
+          <div class="editor-footer"><span id="editorHint">Tip: keep the source small while you learn.</span><button class="primary-button" id="analyzeButton" type="button"><span>Analyze HTML</span><span>→</span></button></div>
+        </div>
+
+        <div class="preview-panel panel">
+          <div class="panel-header"><div class="panel-title"><span class="panel-kicker">02</span><div><h2>Live preview</h2><p>Rendered inside a sandboxed frame.</p></div></div><span class="live-label"><span></span> Preview</span></div>
+          <div class="preview-stage" id="previewStage"><div class="preview-empty" id="previewEmpty"><div class="empty-icon">◈</div><strong>Your preview will appear here</strong><span>Run the source to see how your page renders.</span></div><iframe id="previewFrame" title="HTML preview" sandbox=""></iframe></div>
+          <div class="preview-footer"><span class="security-note">⌁ Scripts and forms are disabled in this preview.</span><button class="secondary-button" id="runPreview" type="button">Run preview <span>↗</span></button></div>
+        </div>
+      </section>
+
+      <section class="report-section section-wrap" id="reportSection" aria-live="polite">
+        <div class="section-heading"><div><p class="eyebrow">03 / Feedback loop</p><h2>Analysis report</h2></div><span class="analyzed-state" id="analyzedState">Not analyzed yet</span></div>
+        <div class="report-grid">
+          <div class="score-card panel"><div class="score-top"><span>Quality score</span><span class="info-dot" title="100 minus 15 per critical issue, 8 per warning, and 3 per info issue.">i</span></div><div class="score-value" id="scoreValue">—</div><div class="score-meter"><span id="scoreMeter"></span></div><p id="scoreLabel">Run an analysis to score the implemented checks.</p><div class="score-legend"><span><i class="dot critical"></i> Critical <b id="criticalCount">0</b></span><span><i class="dot warning"></i> Warning <b id="warningCount">0</b></span></div></div>
+          <div class="summary-card panel"><div class="summary-heading"><div><span class="card-label">At a glance</span><h3><span id="totalIssues">0</span> issues found</h3></div><span class="summary-mark">◎</span></div><div class="category-bars" id="categoryBars"><p class="muted">Your issue categories will show here.</p></div></div>
+          <div class="issues-card panel"><div class="issues-heading"><div><span class="card-label">Click-to-fix queue</span><h3>Issues to explore</h3></div><button class="text-button" id="learnToggle" type="button">Learn mode <span>↗</span></button></div><div class="issue-list" id="issueList"><div class="empty-issues"><span>✓</span><strong>Nothing flagged yet</strong><p>Analyze your HTML to get a focused list of improvements.</p></div></div></div>
+        </div>
+      </section>
+
+      <section class="learn-panel section-wrap panel" id="learnPanel" hidden>
+        <div class="learn-heading"><div><p class="eyebrow">Learn mode</p><h2>Understand the pattern</h2><p>Pick an issue above to see the reasoning behind the fix.</p></div><button class="icon-button" id="closeLearn" type="button" aria-label="Close learn mode">×</button></div>
+        <div class="learn-content" id="learnContent"><div class="learn-placeholder">Select an issue card to open its lesson.</div></div>
+      </section>
+    </main>
+    <footer class="footer section-wrap"><span>WebWiz is a learning aid, not a full HTML validator or accessibility audit.</span><span>Built for curious beginners <span class="footer-spark">✦</span></span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>window.WEBWIZ_MAX_LENGTH = {{ max_html_length }};</script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

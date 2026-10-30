@@ -1,0 +1,109 @@
+# WebWiz — HTML Quality & Accessibility Analyzer
+
+## 1. Project Overview
+
+WebWiz is a web-based tool that helps students and beginner web developers identify common HTML mistakes and basic accessibility issues in their code.
+
+Users can paste their HTML code into the website and click the **Check Code** button. WebWiz analyzes the code, highlights detected issues with line numbers, and provides explanations and suggested fixes.
+
+The main goal is to help beginners write cleaner, more accessible HTML and understand their mistakes while learning web development.
+
+## 2. Problem Statement
+
+Beginners often make HTML mistakes without understanding why they occur. They may also overlook accessibility requirements, such as providing alternative text for images and labels for form inputs.
+
+WebWiz provides a simple interface to detect these issues and explain how to improve the code.
+
+## 3. Main Features
+
+1. **HTML Code Input**
+   - Paste HTML code into an editor.
+   - Clear the editor or load sample code.
+2. **HTML Issue Detection**
+   - Detect common structural problems.
+   - Identify unclosed or improperly nested elements where supported.
+   - Report missing required attributes in common situations.
+3. **Accessibility Checker**
+   - Detect images without alternative text.
+   - Identify form controls without accessible labels.
+   - Flag suspicious or empty links.
+4. **Line Number Reporting**
+   - Display the location of detected issues whenever the source position is available.
+5. **Fix Suggestions**
+   - Explain why each issue matters.
+   - Show corrected code examples.
+6. **Quality Report**
+   - Group findings by severity and category.
+   - Display a summary of detected issues.
+   - Calculate a clearly labelled score based on the checks performed.
+
+## 4. Technology Stack
+
+- Frontend: HTML5 and CSS3
+- Interactivity: Vanilla JavaScript
+- Backend: Python with Flask
+- HTML Parsing: Python HTML parsing libraries
+- Database: Not required for the initial version
+- Version Control: Git and GitHub
+
+## 5. How It Works
+
+Step 1: The user opens the WebWiz website.
+
+Step 2: The user pastes HTML code into the editor.
+
+Step 3: The user clicks Check Code.
+
+Step 4: The frontend sends the HTML to the Flask backend.
+
+Step 5: The backend parses the HTML and runs the supported checks.
+
+Step 6: The website displays findings, locations, explanations, and suggested fixes.
+
+Step 7: The user corrects the code and runs the checks again.
+
+## 6. Example
+
+Input:
+
+\<img src="student.jpg">
+
+Possible finding:
+
+Issue: The image has no alternative text.
+
+Explanation: Alternative text can help people using screen readers understand the image's purpose.
+
+Suggested improvement:
+
+\<img src="student.jpg" alt="Student studying">
+
+Note: This is an illustrative accessibility finding, not necessarily an HTML syntax error.
+
+## 7. Target Users
+
+- College students learning HTML.
+- Beginner web developers.
+- Students building their first websites.
+- Learners practising web accessibility.
+
+## 8. Expected Outcome
+
+WebWiz will provide a beginner-friendly environment for checking HTML code, understanding common mistakes, and learning basic accessibility practices.
+
+The project will demonstrate practical skills in Python backend development, HTML parsing, frontend development, JavaScript interaction, and software testing.
+
+## 9. Future Enhancements
+
+- HTML standards validation.
+- Highlight issues directly inside the editor.
+- Downloadable analysis reports.
+- Additional accessibility checks.
+- Before-and-after code comparison.
+- Support for checking uploaded HTML files.
+
+## 10. Project Scope
+
+The first version will focus on common HTML issues and selected accessibility checks.
+
+It will not claim to detect every HTML error or guarantee that a website is fully accessible. More advanced validation and accessibility testing can be added in later versions.
